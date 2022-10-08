@@ -1,0 +1,88 @@
+
+
+Система , использующая;
+Использование системы .Коллекции;
+Использование системы .Коллекции.Общий;
+UnityEngine  с использованием;
+
+Общедоступный  класс  CarController: MonoBehaviour
+{
+    " Горизонтальный " = ГОРИЗОНТАЛЬНАЯ  строка const private;
+    " Vertical " = ВЕРТИКАЛЬНАЯ  строка const private;
+
+    Горизонтальный  ввод с плавающей  запятой;
+    verticalInput  с плавающей  запятой private;
+    currentSteerAngle  плавающий  частный;
+    currentbreakForce float private;
+    isBreaking bool private;
+
+ [SerializeField] частная  плавающая  моторная сила;
+ [SerializeField] частная  сила прерывания с плавающей  запятой;
+ [SerializeField] private float maxSteerAngle;
+
+ [SerializeField] частный  колесный коллайдер Передний левый колесный  коллайдер;
+ [SerializeField] частный  колесный коллайдер  frontRightWheelCollider;
+ [SerializeField] частный  колесный коллайдер  rearLeftWheelCollider;
+ [SerializeField] частный  колесный коллайдер  rearRightWheelCollider;
+
+ [SerializeField] частное  преобразование  frontLeftWheelTransform;
+ [SerializeField] приватное  преобразование  переднего интерфейса для преобразования;
+ [SerializeField] частное  преобразование  rearLeftWheelTransform;
+ [SerializeField] частное  преобразование  rearRightWheelTransform;
+
+    Исправленное  обновление аннулирует  private()
+    {
+        GetInput();
+        HandleMotor();
+        Управление обработкой ();
+        Обновление колес ();
+    }
+
+
+    GetInput  аннулирует  private()
+    {
+        Ввод  =  горизонтальный ввод.Получить ОСЬ (ГОРИЗОНТАЛЬНУЮ);
+        Ввод  =  вертикальный ввод.Получить ОСЬ (ВЕРТИКАЛЬНУЮ);
+        Ввод  =  сбой.getKey(keyCode.Space);
+    }
+
+    HandleMotor  аннулирует  private()
+    {
+        Передний левый колесный коллайдер.Двигатель  =  вертикальный ввод  *  Моторная сила;
+        Передний приводколлайдера.Двигатель  =  вертикальный ввод  *  Моторная сила;
+        f  0 :  сила  прерывания? isBreaking = Текущая сила прерывания;
+        ApplyBreaking();       
+    }
+
+    Разрыв  приложения аннулирует  private()
+    {
+        frontRightWheelCollider.brakeTorque =  текущая сила разрыва;
+        frontLeftWheelCollider.brakeTorque =  текущая сила разрыва;
+        rearLeftWheelCollider.brakeTorque =  текущая сила разрыва;
+        rearRightWheelCollider.brakeTorque =  текущая тормозная сила;
+    }
+
+    Управление  обработкой аннулирует  private()
+    {
+        Горизонтальный  ввод * maxSteerAngle = currentSteerAngle;
+        Передний левый колесный коллайдер.steerAngle = Текущий поворотный угол;
+        Передний привод.steerAngle = Текущий поворотный угол;
+    }
+
+    UpdateWheels  аннулирует  private()
+    {
+        Обновление единого колеса (frontLeftWheelCollider, frontLeftWheelTransform);
+        Обновление единого колеса (frontRightWheelCollider, frontRightWheeTransform);
+        Обновление единого колеса (rearRightWheelCollider, rearRightWheelTransform);
+        Обновление единого колеса (rearLeftWheelCollider, rearLeftWheelTransform);
+    }
+
+    Обновление  единого колеса аннулирует  частное (WheelCollider  WheelCollider, преобразование  wheelTransform)
+    {
+        pos Vector3;
+        Кватернион  вращается
+; Колесный коллайдер.Получить worldpose (из  pos, из  rot);
+        Преобразование колес.вращение  =  вращение;
+        wheelTransform.position = pos;
+    }
+}
